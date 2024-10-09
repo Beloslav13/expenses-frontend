@@ -18,11 +18,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.active-link {
-  color: #0755db;
-  cursor: default;
-}
-
 a {
   color: #fff;
 }

@@ -8,7 +8,6 @@ header {
     color: #fff;
 }
 
-/* Стили для списка навигации */
 .nav {
     display: flex;
     list-style: none;
@@ -18,4 +17,13 @@ header {
 
 .nav-item {
     margin: 0 10px;
+}
+
+.active-link {
+  color: #0092ff !important;
+  cursor: default;
+}
+
+header a:hover {
+  color: #0092ff !important;
 }

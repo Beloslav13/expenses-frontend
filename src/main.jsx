@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from './App.jsx'
 import './index.css'
+import App from './App.jsx'
 import { MainPage } from "./pages/MainPage.jsx";
 import { UserDetailPage } from "./pages/UserDetailPage.jsx";
 import { CategoryPage } from "./pages/CategoryPage.jsx";

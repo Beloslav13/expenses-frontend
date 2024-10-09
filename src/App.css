@@ -11,3 +11,22 @@
 .container {
   flex: 1;
 }
+
+.block-container {
+  padding: 20px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.block-container a {
+  color: #000000;
+}
+
+.even-row {
+   /* Светло-серый цвет */
+  background-color: #e9eff6; /* Темно-серый цвет */
+}
+
+.odd-row {
+  background-color: #fff;
+}
