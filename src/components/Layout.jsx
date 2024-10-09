@@ -12,11 +12,12 @@ function Layout() {
         <NavLink to="/categories" className={setActive}>Categories</NavLink>
         <NavLink to="/spendings" className={setActive}>Spendings</NavLink>
       </header>
+
       <Container>
         <Outlet/>
       </Container>
 
-      <footer>2024</footer>
+      <footer>App 2024</footer>
     </>
   )
 }
