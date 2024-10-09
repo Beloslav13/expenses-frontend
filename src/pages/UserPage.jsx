@@ -18,7 +18,7 @@ function UserPage() {
     <>
       <h1>User Page</h1>
       {users.map(user => (
-        <Link key={user.id} to={`/users/${user.id}`}>
+        <Link key={user.id} to={`/users/${user.id}/`}>
           <li>{user.name}</li>
         </Link>
       ))}

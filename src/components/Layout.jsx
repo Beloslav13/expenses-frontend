@@ -1,23 +1,19 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Container } from "react-bootstrap";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer.jsx";
 
-const setActive = (({isActive}) => isActive ? 'active-link' : '')
 
 function Layout() {
   return (
     <>
-      <header>
-        <NavLink to="/" className={setActive}>Home</NavLink>
-        <NavLink to="/users" className={setActive}>Users</NavLink>
-        <NavLink to="/categories" className={setActive}>Categories</NavLink>
-        <NavLink to="/spendings" className={setActive}>Spendings</NavLink>
-      </header>
+      <Header/>
 
       <Container>
         <Outlet/>
       </Container>
 
-      <footer>App 2024</footer>
+      <Footer/>
     </>
   )
 }

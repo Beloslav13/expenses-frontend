@@ -1,0 +1,21 @@
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link {
+    color: #fff;
+}
+
+/* Стили для списка навигации */
+.nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin: 0 10px;
+}

@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App.jsx'
 import './index.css'
 import { MainPage } from "./pages/MainPage.jsx";
 import { UserDetailPage } from "./pages/UserDetailPage.jsx";
@@ -20,19 +20,19 @@ const router = createBrowserRouter([
         element: <MainPage/>,
       },
       {
-        path: 'users',
+        path: 'users/',
         element: <UserPage/>,
       },
       {
-        path: 'users/:id',
+        path: 'users/:id/',
         element: <UserDetailPage/>,
       },
       {
-        path: 'categories',
+        path: 'categories/',
         element: <CategoryPage/>,
       },
       {
-        path: 'spendings',
+        path: 'spendings/',
         element: <SpendingPage/>,
       },
       {
