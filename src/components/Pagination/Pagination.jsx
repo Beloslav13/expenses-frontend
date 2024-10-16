@@ -4,8 +4,8 @@ import './Pagination.css'
 function CustomPagination(props) {
   return (
     <Pagination>
-      <Pagination.Prev />
-      <Pagination.Next />
+      <Pagination.Prev onClick={props.handlePrevPage} disabled={props.prevDisabled} />
+      <Pagination.Next onClick={props.handleNextPage} disabled={props.nextDisabled}/>
     </Pagination>
   );
 }

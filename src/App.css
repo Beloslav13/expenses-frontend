@@ -30,3 +30,7 @@
 .odd-row {
   background-color: #fff;
 }
+
+.dynamic-card {
+  min-height: 50vh;
+}
