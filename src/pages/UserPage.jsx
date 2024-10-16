@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
+import CustomPagination from "../components/Pagination/Pagination.jsx";
 
 
 function UserPage() {
@@ -26,16 +27,16 @@ function UserPage() {
     <div className="block-container">
       <div className="block">
         <h1>Список пользователей</h1>
-        <div className="card margin">
-          <div className="card-header">
+        <Card className="card margin">
+          <Card.Header className="card-header">
             <Row className='fw-bold text-center'>
               <Col sm={3}>Псевдоним</Col>
               <Col sm={3}>Внешний id</Col>
               <Col sm={3}>Количество категорий</Col>
               <Col sm={3}>Сумма расходов</Col>
             </Row>
-          </div>
-          <div className="card-body select-area">
+          </Card.Header>
+          <Card.Body className="card-body select-area">
             {users ? users.map((user, index) => (
               <Row key={user.id} className={`py-2 can-select ${index % 2 === 0 ? 'even-row' : 'odd-row'}`}>
                 <Link key={user.id} to={`/users/${user.id}/`} className='d-flex text-center'>
@@ -46,8 +47,15 @@ function UserPage() {
                 </Link>
               </Row>
             )) : null}
-          </div>
-        </div>
+          </Card.Body>
+          <Card.Footer className='d-flex justify-content-center align-items-center'>
+            <Row сlassName="w-100">
+              <Col sm={12}>
+                <CustomPagination/>
+              </Col>
+            </Row>
+          </Card.Footer>
+        </Card>
 
 
       </div>
