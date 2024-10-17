@@ -14,7 +14,7 @@ function UserPage(props) {
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
   const [page, setPage] = useState(1);
-  const [prevDisabled, setPrevDisabled] = useState(true);
+  const [prevDisabled, setPrevDisabled] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(false);
 
   const fetchData = () => {
@@ -29,9 +29,9 @@ function UserPage(props) {
       setUsers(res.data.results)
       setNextPage(res.data.next)
       setPrevPage(res.data.previous)
-      setCount(count)
-      setPrevDisabled(!res.data.previous);
-      setNextDisabled(!res.data.next);
+      setPrevDisabled(!res.data.previous)
+      setNextDisabled(!res.data.next)
+      setCount(res.data.count)
     })
     .catch(err => setError(err))
     .finally(() => setLoading(false));
