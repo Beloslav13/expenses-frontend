@@ -46,3 +46,7 @@
 .disabled-input {
   background-color: #a9a9a9 !important;
 }
+
+.card-footer-user {
+  height: 100px;
+}
