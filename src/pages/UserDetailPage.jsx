@@ -19,7 +19,8 @@ function UserDetailPage() {
   const [user, setUser] = useState({});
   const [fields, setFields] = useState({
     username: '',
-    first_name: ''
+    first_name: '',
+    is_bot: false,
   });
   const [patchFields, setPatchFields] = useState({})
   const [loading, setLoading] = useState(false);
@@ -61,6 +62,25 @@ function UserDetailPage() {
       [name]: value
     }));
   };
+
+  const handleCheckBoxFields = (e) => {
+    const name = e.target.name
+    const value = e.target.checked
+
+    setErrors(prevErrors => {
+      const {[name]: _, ...newErrors} = prevErrors;
+      return newErrors;
+    });
+    setFields(prevFields => ({
+      ...prevFields,
+      [name]: value
+    }));
+    setPatchFields(prevFields => ({
+      ...prevFields,
+      [name]: value
+    }));
+
+  }
 
   const handlePatch = () => {
     setLoading(true);
@@ -128,8 +148,23 @@ function UserDetailPage() {
                         isInvalid={!!errors?.response?.data.first_name}
                       />
                       <Form.Control.Feedback type="invalid">
-                        {errors?.first_name}
+                        {errors?.response?.data.first_name[0]}
                       </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Check
+                        required
+                        name='is_bot'
+                        label={label.is_bot}
+                        feedback={errors?.first_name}
+                        feedbackType="invalid"
+                        onChange={handleCheckBoxFields}
+                        checked={fields.is_bot}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -148,7 +183,8 @@ function UserDetailPage() {
                     className='alert alert-danger text-center mt-3 mb-3 fw-bold'>{errors.response.data.detail}</Form.Text>
                 ) :
                 errors.length > 0 ? (<Form.Text
-                    className='alert alert-danger text-center mt-3 mb-3 fw-bold'>Произошла ошибка при сохранение данных</Form.Text>)
+                    className='alert alert-danger text-center mt-3 mb-3 fw-bold'>Произошла ошибка при сохранение
+                    данных</Form.Text>)
                   : null}
             </Card.Footer>
           </Card>
