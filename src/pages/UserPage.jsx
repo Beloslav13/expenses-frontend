@@ -56,7 +56,7 @@ function UserPage(props) {
   return (
     <div className="block-container">
       <div className="block">
-        <h1>Список пользователей</h1>
+        <h1 className='pb-3 text-center'>Список пользователей</h1>
         <Card className="card margin dynamic-card">
           <Card.Header className="card-header">
             <Row className='fw-bold text-center'>
