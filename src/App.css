@@ -38,3 +38,7 @@
 .detail-user-card {
   color: #fff;
 }
+
+.invalid-feedback {
+  color: #ba0101 !important;
+}

@@ -83,6 +83,7 @@ function UserDetailPage() {
   console.log('fields', fields);
   console.log('patchFields', patchFields);
   console.log('errors', errors);
+  console.log('errors', errors?.response?.data.username[0]);
 
   return (
     <>
@@ -107,9 +108,10 @@ function UserDetailPage() {
                         placeholder="Введите..."
                         value={fields.username}
                         onChange={handleFields}
+                        isInvalid={!!errors?.response?.data.username}
                       />
                       <Form.Control.Feedback type="invalid">
-                        {errors?.username}
+                        {errors?.response?.data.username[0]}
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
@@ -123,6 +125,7 @@ function UserDetailPage() {
                         placeholder="Введите..."
                         value={fields.first_name}
                         onChange={handleFields}
+                        isInvalid={!!errors?.response?.data.first_name}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors?.first_name}
