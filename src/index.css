@@ -22,9 +22,3 @@ a {
   color: #fff;
   text-decoration: none !important;
 }
-
-a:focus {
-    outline: none !important;
-    box-shadow: none !important;
-    background-color: #ffffff !important;
-}

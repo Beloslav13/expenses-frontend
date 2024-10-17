@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Alert, Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
+import { HEADERS, HOST, USERS_URL } from "../config.js";
 
 const label = {
   username: 'Логин',
@@ -15,7 +16,7 @@ const label = {
   total_spending: 'Сумма расходов в рублях',
 }
 
-function UserDetailPage() {
+function UserDetailPage(props) {
   const [user, setUser] = useState({});
   const [fields, setFields] = useState({
     username: '',
@@ -38,10 +39,8 @@ function UserDetailPage() {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`http://127.0.0.1:8000/core/api/users/${id}/`, {
-      headers: {
-        Authorization: `Token d7081e83fb1526a2e1dc92f21814d208282aaa49`
-      },
+    axios.get(`${HOST}${USERS_URL}/${id}/`, {
+      headers: HEADERS,
     })
     .then(r => {
       setUser(r.data);
@@ -95,10 +94,8 @@ function UserDetailPage() {
 
   const handlePatch = () => {
     setLoadingPatch(true);
-    axios.patch(`http://127.0.0.1:8000/core/api/users/${id}/`, patchFields, {
-      headers: {
-        Authorization: `Token d7081e83fb1526a2e1dc92f21814d208282aaa49`
-      },
+    axios.patch(`${HOST}${USERS_URL}/${id}/`, patchFields, {
+      headers: HEADERS,
     })
     .then(res => {
       console.log(res)

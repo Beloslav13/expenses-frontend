@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Card, Col, Row, Spinner, Form } from "react-bootstrap";
 import CustomPagination from "../components/Pagination/Pagination.jsx";
-import { QUERY_LIMIT } from "../config.js";
+import { HEADERS, HOST, QUERY_LIMIT, USERS_URL } from "../config.js";
 
 
 function UserPage(props) {
@@ -17,11 +17,9 @@ function UserPage(props) {
 
   const fetchData = () => {
     setLoading(true)
-    axios.get('http://127.0.0.1:8000/core/api/users/', {
+    axios.get(`${HOST}${USERS_URL}/`, {
       params: {limit: QUERY_LIMIT, page: page},
-      headers: {
-        Authorization: `Token d7081e83fb1526a2e1dc92f21814d208282aaa49`
-      },
+      headers: HEADERS,
     })
     .then(res => {
       setUsers(res.data.results)
