@@ -1,2 +1,2 @@
 
-export const QUERY_LIMIT = 12
+export const QUERY_LIMIT = 3

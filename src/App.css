@@ -50,3 +50,9 @@
 .card-footer-user {
   height: 100px;
 }
+
+.card-footer a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #ffffff !important;
+}
