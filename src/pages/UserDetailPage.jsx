@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 
 const label = {
   username: 'Логин',
@@ -22,9 +22,12 @@ function UserDetailPage() {
     first_name: '',
     is_bot: false,
     is_premium: false,
+    email: '',
+    external_id: 0
   });
   const [patchFields, setPatchFields] = useState({})
   const [loading, setLoading] = useState(false);
+  const [loadingPatch, setLoadingPatch] = useState(false);
   const [errors, setErrors] = useState({});
   const [responseStatus, setResponseStatus] = useState({});
   const {id} = useParams();
@@ -33,6 +36,7 @@ function UserDetailPage() {
   const goBack = () => navigate(-1);
 
   useEffect(() => {
+    setLoading(true)
     axios.get(`http://127.0.0.1:8000/core/api/users/${id}/`, {
       headers: {
         Authorization: `Token d7081e83fb1526a2e1dc92f21814d208282aaa49`
@@ -43,7 +47,8 @@ function UserDetailPage() {
       setFields(r.data);
       setResponseStatus(200)
     })
-    .catch(err => console.log('error', err));
+    .catch(err => console.log('error', err))
+    .finally(() => setLoading(false));
   }, [id]);
 
   const handleFields = (e) => {
@@ -84,7 +89,7 @@ function UserDetailPage() {
   }
 
   const handlePatch = () => {
-    setLoading(true);
+    setLoadingPatch(true);
     axios.patch(`http://127.0.0.1:8000/core/api/users/${id}/`, patchFields, {
       headers: {
         Authorization: `Token d7081e83fb1526a2e1dc92f21814d208282aaa49`
@@ -97,7 +102,7 @@ function UserDetailPage() {
       console.log(err)
       setErrors(err.response.data)
       setResponseStatus(err.status)
-    }).finally(() => setLoading(false));
+    }).finally(() => setLoadingPatch(false));
   };
 
   console.log(user);
@@ -117,11 +122,15 @@ function UserDetailPage() {
             </Card.Header>
             <Card.Body className="card-body">
               <Form>
+                {loading ?
+                  <div className="d-flex justify-content-center align-items-center" style={{height: '400px'}}>
+                    <Spinner animation="border" variant="primary"/>
+                  </div> : <>
                 <Row className="mb-3">
                   <Col sm={6}>
                     <Form.Group className="mb-3" controlId="user-username">
                       <Form.Label>{label.username}</Form.Label>
-                      <Form.Control
+                      <Form.Control className={`${loadingPatch ? "disabled-input" : ""}`}
                         required
                         name='username'
                         type="text"
@@ -145,6 +154,7 @@ function UserDetailPage() {
                         feedbackType="invalid"
                         onChange={handleCheckBoxFields}
                         checked={fields.is_bot}
+                        disabled={loadingPatch}
                       />
                     </Form.Group>
                   </Col>
@@ -158,6 +168,7 @@ function UserDetailPage() {
                         feedbackType="invalid"
                         onChange={handleCheckBoxFields}
                         checked={fields.is_premium}
+                        disabled={loadingPatch}
                       />
                     </Form.Group>
                   </Col>
@@ -166,7 +177,7 @@ function UserDetailPage() {
                   <Col sm={6}>
                     <Form.Group className="mb-3" controlId="user-first_name">
                       <Form.Label>{label.first_name}</Form.Label>
-                      <Form.Control
+                      <Form.Control className={`${loadingPatch ? "disabled-input" : ""}`}
                         required
                         name='first_name'
                         type="text"
@@ -183,7 +194,7 @@ function UserDetailPage() {
                   <Col sm={6}>
                     <Form.Group className="mb-3" controlId="user-last_name">
                       <Form.Label>{label.last_name}</Form.Label>
-                      <Form.Control
+                      <Form.Control className={`${loadingPatch ? "disabled-input" : ""}`}
                         required
                         name='last_name'
                         type="text"
@@ -202,7 +213,7 @@ function UserDetailPage() {
                   <Col sm={6}>
                     <Form.Group className="mb-3" controlId="user-email">
                       <Form.Label>{label.email}</Form.Label>
-                      <Form.Control
+                      <Form.Control className={`${loadingPatch ? "disabled-input" : ""}`}
                         required
                         name='email'
                         type="email"
@@ -219,7 +230,7 @@ function UserDetailPage() {
                   <Col sm={6}>
                     <Form.Group className="mb-3" controlId="user-external_id">
                       <Form.Label>{label.external_id}</Form.Label>
-                      <Form.Control
+                      <Form.Control className={`${loadingPatch ? "disabled-input" : ""}`}
                         required
                         name='external_id'
                         type="text"
@@ -227,6 +238,7 @@ function UserDetailPage() {
                         value={fields.external_id}
                         onChange={handleFields}
                         isInvalid={!!errors?.external_id}
+                        disabled={loadingPatch}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors?.external_id??[0]}
@@ -264,13 +276,14 @@ function UserDetailPage() {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row>
-                  <Col sm={6}>
-                    <Button variant="primary" onClick={handlePatch}>
-                      Сохранить
+                <Row className="justify-content-end">
+                  <Col sm={6} className="text-end pt-3 pb-3">
+                    <Button variant="primary" onClick={handlePatch} disabled={loadingPatch}>
+                      {loadingPatch ? "Загрузка" : "Сохранить"}
                     </Button>
                   </Col>
                 </Row>
+                </>}
               </Form>
             </Card.Body>
             <Card.Footer className='d-flex justify-content-center align-items-center'>

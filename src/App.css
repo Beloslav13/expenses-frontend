@@ -42,3 +42,7 @@
 .invalid-feedback {
   color: #ba0101 !important;
 }
+
+.disabled-input {
+  background-color: #a9a9a9 !important;
+}
