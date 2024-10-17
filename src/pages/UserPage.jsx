@@ -11,8 +11,6 @@ function UserPage(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [count, setCount] = useState(0);
-  const [nextPage, setNextPage] = useState(null);
-  const [prevPage, setPrevPage] = useState(null);
   const [page, setPage] = useState(1);
   const [prevDisabled, setPrevDisabled] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(false);
@@ -27,8 +25,6 @@ function UserPage(props) {
     })
     .then(res => {
       setUsers(res.data.results)
-      setNextPage(res.data.next)
-      setPrevPage(res.data.previous)
       setPrevDisabled(!res.data.previous)
       setNextDisabled(!res.data.next)
       setCount(res.data.count)
