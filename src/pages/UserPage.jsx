@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, Col, Row, Spinner } from "react-bootstrap";
+import { Card, Col, Row, Spinner, Form } from "react-bootstrap";
 import CustomPagination from "../components/Pagination/Pagination.jsx";
 import { QUERY_LIMIT } from "../config.js";
 
@@ -49,9 +49,7 @@ function UserPage(props) {
     setPage(page - 1)
   }
 
-  console.log('nextPage', nextPage);
-  console.log('prevPage', prevPage);
-  console.log('page', page);
+  console.log('error', error);
 
   return (
     <div className="block-container">
@@ -90,6 +88,12 @@ function UserPage(props) {
               </Col>
             </Row>
           </Card.Footer>
+          {error && !error.response && (
+            <Form.Text className='alert alert-danger text-center mt-3 mb-3 fw-bold'>{error.message}</Form.Text>
+          )}
+          {error && error.response && (
+            <Form.Text className='alert alert-danger text-center mt-3 mb-3 fw-bold'>{error.response.statusText}</Form.Text>
+          )}
         </Card>
 
 
