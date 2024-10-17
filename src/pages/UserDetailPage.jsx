@@ -7,7 +7,7 @@ const label = {
   username: 'Логин',
   first_name: 'Фамилия',
   last_name: 'Имя',
-  email: 'Почти',
+  email: 'Почта',
   external_id: 'Внешний id',
   is_bot: 'Бот',
   is_premium: 'Премиум аккаунт',
@@ -21,6 +21,7 @@ function UserDetailPage() {
     username: '',
     first_name: '',
     is_bot: false,
+    is_premium: false,
   });
   const [patchFields, setPatchFields] = useState({})
   const [loading, setLoading] = useState(false);
@@ -94,7 +95,7 @@ function UserDetailPage() {
     })
     .catch(err => {
       console.log(err)
-      setErrors(err)
+      setErrors(err.response.data)
       setResponseStatus(err.status)
     }).finally(() => setLoading(false));
   };
@@ -103,7 +104,6 @@ function UserDetailPage() {
   console.log('fields', fields);
   console.log('patchFields', patchFields);
   console.log('errors', errors);
-  console.log('errors', errors?.response?.data.username[0]);
 
   return (
     <>
@@ -112,7 +112,7 @@ function UserDetailPage() {
           <Card className="card margin dynamic-card detail-user-card w-75 m-auto" bg="secondary">
             <Card.Header className="card-header">
               <Row className="fw-bold text-center">
-                <Col sm={12}><h1>Логин: {user.username}</h1></Col>
+                <Col sm={12}><h1>Пользователь</h1></Col>
               </Row>
             </Card.Header>
             <Card.Body className="card-body">
@@ -128,13 +128,41 @@ function UserDetailPage() {
                         placeholder="Введите..."
                         value={fields.username}
                         onChange={handleFields}
-                        isInvalid={!!errors?.response?.data.username}
+                        isInvalid={!!errors?.username}
                       />
                       <Form.Control.Feedback type="invalid">
-                        {errors?.response?.data.username[0]}
+                        {errors?.username??[0]}
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
+                  <Col sm={1} className='d-flex align-items-center'>
+                    <Form.Group className='mt-3'>
+                      <Form.Check
+                        required
+                        name='is_bot'
+                        label={label.is_bot}
+                        feedback={errors?.first_name}
+                        feedbackType="invalid"
+                        onChange={handleCheckBoxFields}
+                        checked={fields.is_bot}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={3} className='d-flex align-items-center justify-content-around'>
+                    <Form.Group className='mt-3'>
+                      <Form.Check
+                        required
+                        name='is_premium'
+                        label={label.is_premium}
+                        feedback={errors?.response?.data.is_premium[0]}
+                        feedbackType="invalid"
+                        onChange={handleCheckBoxFields}
+                        checked={fields.is_premium}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
                   <Col sm={6}>
                     <Form.Group className="mb-3" controlId="user-first_name">
                       <Form.Label>{label.first_name}</Form.Label>
@@ -145,26 +173,94 @@ function UserDetailPage() {
                         placeholder="Введите..."
                         value={fields.first_name}
                         onChange={handleFields}
-                        isInvalid={!!errors?.response?.data.first_name}
+                        isInvalid={!!errors?.first_name}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors?.response?.data.first_name[0]}
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
+                  <Col sm={6}>
+                    <Form.Group className="mb-3" controlId="user-last_name">
+                      <Form.Label>{label.last_name}</Form.Label>
+                      <Form.Control
+                        required
+                        name='last_name'
+                        type="text"
+                        placeholder="Введите..."
+                        value={fields.last_name}
+                        onChange={handleFields}
+                        isInvalid={!!errors?.last_name}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors?.response?.data.last_name[0]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
                 </Row>
                 <Row>
                   <Col sm={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Check
+                    <Form.Group className="mb-3" controlId="user-email">
+                      <Form.Label>{label.email}</Form.Label>
+                      <Form.Control
                         required
-                        name='is_bot'
-                        label={label.is_bot}
-                        feedback={errors?.first_name}
-                        feedbackType="invalid"
-                        onChange={handleCheckBoxFields}
-                        checked={fields.is_bot}
+                        name='email'
+                        type="email"
+                        placeholder="Введите..."
+                        value={fields.email}
+                        onChange={handleFields}
+                        isInvalid={!!errors?.email}
                       />
+                      <Form.Control.Feedback type="invalid">
+                        {errors?.email??[0]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Group className="mb-3" controlId="user-external_id">
+                      <Form.Label>{label.external_id}</Form.Label>
+                      <Form.Control
+                        required
+                        name='external_id'
+                        type="text"
+                        placeholder="Введите..."
+                        value={fields.external_id}
+                        onChange={handleFields}
+                        isInvalid={!!errors?.external_id}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors?.external_id??[0]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <Form.Group className="mb-3" controlId="user-category_count">
+                      <Form.Label>{label.category_count}</Form.Label>
+                      <Form.Control className='disabled-input'
+                        name='category_count'
+                        type="text"
+                        value={fields.category_count}
+                        disabled
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors?.response?.data.email[0]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Group className="mb-3" controlId="user-total_spending">
+                      <Form.Label>{label.total_spending}</Form.Label>
+                      <Form.Control className='disabled-input'
+                        name='total_spending'
+                        type="text"
+                        value={fields.total_spending}
+                        disabled
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors?.response?.data.last_name[0]}
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
                 </Row>
